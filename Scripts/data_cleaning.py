@@ -6,4 +6,5 @@ def load_clean(path):
     df.columns=df.columns.str.strip().str.lower()
     df["order_date"]=pd.to_datetime(df["order_date"],dayfirst=True, errors="coerce")
     df["ship_date"]=pd.to_datetime(df["ship_date"],dayfirst=True, errors="coerce")
+    df["sales"]=pd.to_numeric(df["sales"], errors="coerce")
     return df

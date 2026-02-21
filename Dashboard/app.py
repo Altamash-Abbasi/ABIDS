@@ -31,13 +31,16 @@ st.metric("Total Profit", f"{total_profit:,.0f}")
 st.metric("Profit Margin", f"{profit_margin:.2f}%")
 
 # ------------------ LEAKAGE ------------------
-product_analysis, high_risk, watchlist = detect_profit_leakage(df)
+product_analysis, high_risk, watchlist,top = detect_profit_leakage(df)
 
 st.header("High Risk Products")
 st.dataframe(high_risk.head(10))
 
 st.header("Watchlist Products")
 st.dataframe(watchlist.head(10))
+
+st.header("Top Loss Making Products")
+st.dataframe(top)
 
 # ------------------ RECOMMENDATIONS ------------------
 recommendations = generate_recommendation(product_analysis)

@@ -58,4 +58,7 @@ def detect_profit_leakage(df):
     print("Watchlist Products")
     print(watchlist.sort_values("risk_score",ascending=False).head())
 
-    return product,high_risk,watchlist
+    top=product["profit"]
+    top=top.sort_values().head()
+    
+    return product,high_risk,watchlist,top
