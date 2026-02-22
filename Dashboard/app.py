@@ -16,6 +16,7 @@ from Scripts.data_cleaning import load_clean
 from Scripts.kpi_engine import compute_kpis
 from Scripts.leakage_detector import detect_profit_leakage
 from Scripts.recommendation_engine import generate_recommendation
+from Scripts.insights import insights
 
 # ------------------ LOAD DATA ------------------
 df = load_clean(csv_path)  # ✅ Use the absolute path
@@ -49,3 +50,26 @@ st.header("Recommendations")
 
 for r in recommendations[:10]:
     st.write(f"Product: {r[0]} | Category: {r[1]} | Action: {r[2]}")
+
+# -------------------- INSIGHTS ---------------------
+top_customer, profit_region, loss_region, category, loss_per, leak_regions = insights(df)
+
+st.header("Business Insights")
+
+st.subheader("Top Customers by Profit")
+st.dataframe(top_customer)
+
+st.subheader("Most Profitable Regions")
+st.dataframe(profit_region)
+
+st.subheader("Loss Making Regions")
+st.dataframe(loss_region)
+
+st.subheader("Category Analysis")
+st.dataframe(category)
+
+st.subheader("Worst Performing Category Loss %")
+st.write(loss_per)
+
+st.subheader("High Sales but Low Profit Region (Leakage)")
+st.dataframe(leak_regions)
