@@ -1,7 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 
-client=OpenAI(api_key=st.secrets["open-ai-key"])
+client=OpenAI(api_key=st.secrets["open_ai_key"])
 def generate_executive_summary(metrics_dict):
     prompt=f"""
     You are a senior business intelligence analyst.
