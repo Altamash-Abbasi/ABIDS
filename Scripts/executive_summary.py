@@ -19,7 +19,7 @@ def generate_executive_summary(metrics_dict):
     Keep it strategic, concise, and action-oriented.
     """
     response=client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4.1-mini",
         messages=[
             {
                 "role":"system","content":"you are a strategic BI consultant."
