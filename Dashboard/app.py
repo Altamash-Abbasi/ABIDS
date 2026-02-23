@@ -21,6 +21,26 @@ from Scripts.insights import insights
 # ------------------ LOAD DATA ------------------
 df = load_clean(csv_path)  # ✅ Use the absolute path
 
+# ------------------ SIDEBAR FILTERS ------------------
+st.sidebar.header("🎛 Filters")
+
+# Get unique values
+regions = sorted(df["region"].dropna().unique())
+categories = sorted(df["category"].dropna().unique())
+
+selected_regions = st.sidebar.multiselect(
+    "Select Region",
+    options=regions,
+    default=regions
+)
+
+selected_categories = st.sidebar.multiselect(
+    "Select Category",
+    options=categories,
+    default=categories
+)
+
+
 def interface(df):
     # ------------------ KPIs ------------------
     total_revenue, total_profit, profit_margin = compute_kpis(df)
@@ -81,7 +101,20 @@ st.write("The uploaded csv file must have columns \norder date,region,category,s
 
 if file is not None:
     df = load_clean(file)   # pass uploaded file
-    interface(df)
+    filtered_df = df[
+    (df["region"].isin(selected_regions)) &
+    (df["category"].isin(selected_categories))
+]
+    interface(filtered_df)
 else:
     df = load_clean(csv_path)  # default file
-    interface(df)
+    filtered_df = df[
+    (df["region"].isin(selected_regions)) &
+    (df["category"].isin(selected_categories))
+]
+    interface(filtered_df)
+
+st.caption(
+    f"Filtered by Region: {', '.join(selected_regions)} | "
+    f"Category: {', '.join(selected_categories)}"
+)
