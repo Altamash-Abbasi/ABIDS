@@ -79,7 +79,12 @@ def interface(df):
 file = st.file_uploader("Upload a CSV file", type="csv")
 st.write("The uploaded csv file must have columns \norder date,region,category,sales,profit,discount")
 if file is not None:
-    df = load_clean(file)   # pass uploaded file
+    try:
+        df = load_clean(file)   # pass uploaded file
+        st.success("File uploaded successfully")
+    except:
+        st.error("The uploaded file doesn't have the  sufficient columns or have columns with different names")
+        st.stop()
 #    interface(df)
 else:
     df = load_clean(csv_path)  # default file
