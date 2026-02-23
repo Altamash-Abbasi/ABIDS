@@ -1,5 +1,10 @@
 from openai import OpenAI
 import streamlit as st
+import os
+
+api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+
+client = OpenAI(api_key=api_key)
 
 client=OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 def generate_executive_summary(metrics_dict):
