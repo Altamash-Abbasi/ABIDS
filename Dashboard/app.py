@@ -21,7 +21,7 @@ from Scripts.insights import insights
 # ------------------ LOAD DATA ------------------
 df = load_clean(csv_path)  # ✅ Use the absolute path
 
-def interface():
+def interface(df):
     # ------------------ KPIs ------------------
     total_revenue, total_profit, profit_margin = compute_kpis(df)
 
@@ -75,11 +75,13 @@ def interface():
     st.subheader("High Sales but Low Profit Region (Leakage)")
     st.dataframe(leak_regions)
 
-    
+
 file = st.file_uploader("Upload a CSV file", type="csv")
+st.write("The uploaded csv file must have columns \norder date,region,category,sales,profit,discount")
+
 if file is not None:
     df = load_clean(file)   # pass uploaded file
-    interface()
+    interface(df)
 else:
     df = load_clean(csv_path)  # default file
-    interface()
+    interface(df)
