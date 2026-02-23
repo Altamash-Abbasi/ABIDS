@@ -21,26 +21,6 @@ from Scripts.insights import insights
 # ------------------ LOAD DATA ------------------
 df = load_clean(csv_path)  # ✅ Use the absolute path
 
-# ------------------ SIDEBAR FILTERS ------------------
-st.sidebar.header("🎛 Filters")
-
-# Get unique values
-regions = sorted(df["region"].dropna().unique())
-categories = sorted(df["category"].dropna().unique())
-
-selected_regions = st.sidebar.multiselect(
-    "Select Region",
-    options=regions,
-    default=regions
-)
-
-selected_categories = st.sidebar.multiselect(
-    "Select Category",
-    options=categories,
-    default=categories
-)
-
-
 def interface(df):
     # ------------------ KPIs ------------------
     total_revenue, total_profit, profit_margin = compute_kpis(df)
@@ -98,21 +78,44 @@ def interface(df):
 
 file = st.file_uploader("Upload a CSV file", type="csv")
 st.write("The uploaded csv file must have columns \norder date,region,category,sales,profit,discount")
-
 if file is not None:
     df = load_clean(file)   # pass uploaded file
-    filtered_df = df[
-    (df["region"].isin(selected_regions)) &
-    (df["category"].isin(selected_categories))
-]
-    interface(filtered_df)
+    interface(df)
 else:
     df = load_clean(csv_path)  # default file
-    filtered_df = df[
-    (df["region"].isin(selected_regions)) &
-    (df["category"].isin(selected_categories))
+    interface(df)
+
+# ------------------ SIDEBAR FILTERS ------------------
+
+st.sidebar.header("🎛 Filters")
+
+regions = sorted(df["region"].dropna().unique())
+categories = sorted(df["category"].dropna().unique())
+
+selected_regions = st.sidebar.multiselect(
+    "Select Region",
+    options=regions,
+    default=regions
+)
+
+selected_categories = st.sidebar.multiselect(
+    "Select Category",
+    options=categories,
+    default=categories
+)
+
+
+# ------------------ APPLY FILTERS ------------------
+
+filtered_df = df[
+    (df["region"].isin(selected_regions)) &(df["category"].isin(selected_categories))
 ]
-    interface(filtered_df)
+
+
+# ------------------ RENDER DASHBOARD ------------------
+
+interface(filtered_df)
+
 
 st.caption(
     f"Filtered by Region: {', '.join(selected_regions)} | "
