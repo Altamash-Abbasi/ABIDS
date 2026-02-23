@@ -17,6 +17,7 @@ from Scripts.kpi_engine import compute_kpis
 from Scripts.leakage_detector import detect_profit_leakage
 from Scripts.recommendation_engine import generate_recommendation
 from Scripts.insights import insights
+from Scripts.executive_summary import generate_executive_summary
 
 # ------------------ LOAD DATA ------------------
 df = load_clean(csv_path)  # ✅ Use the absolute path
@@ -75,6 +76,23 @@ def interface(df):
     st.subheader("High Sales but Low Profit Region (Leakage)")
     st.dataframe(leak_regions)
 
+    matrics_dict={
+    "Total Revenue": total_revenue,
+    "Total Profit": total_profit,
+    "Profit Margin": profit_margin,
+    "Top Customer": top_customer.head(1).to_dict(),
+    "Most Profitable Region": profit_region.head(1).to_dict(),
+    "Loss Making Region": loss_region.head(1).to_dict(),
+    "Worst Category Loss %": loss_per
+    }
+
+    if st.button("Generate AI Executive Summary"):
+        with st.spinner("generating strategic insights..."):
+            summary=generate_executive_summary(matrics_dict)
+            st.subheader("AI Executive summary")
+            st.write(summary)
+
+
 
 file = st.file_uploader("Upload a CSV file", type="csv")
 st.write("The uploaded csv file must have columns \norder date,region,category,sales,profit,discount")
@@ -126,3 +144,5 @@ st.caption(
     f"Filtered by Region: {', '.join(selected_regions)} | "
     f"Category: {', '.join(selected_categories)}"
 )
+
+

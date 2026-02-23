@@ -3,3 +3,6 @@ __pycache__/
 .env
 venv/
 ai_venv/
+.streamlit/
+.streamlit/secrets.toml
+secrets.toml
