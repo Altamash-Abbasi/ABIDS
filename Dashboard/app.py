@@ -29,7 +29,7 @@ def interface(df):
     # ---------------- KPIs ----------------
     total_revenue, total_profit, profit_margin = compute_kpis(df)
 
-    st.title("📊 ABIDS — Automated Business Intelligence Dashboard")
+    st.title("📊 ABIDS — Automated Business Intelligence And Decision System")
     st.markdown("---")
 
     st.subheader("Executive KPIs")
