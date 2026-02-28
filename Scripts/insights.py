@@ -4,7 +4,7 @@ def insights(df):
         "profit":"sum"
     })
     top_customer=top_customer.sort_values("profit",ascending=False).head()
-
+    top_customer=top_customer.reset_index()
 
 
     #Most profit and loss making regions
@@ -13,6 +13,8 @@ def insights(df):
     })
     profit_region=region.sort_values("profit",ascending=False).head()
     loss_region=region.sort_values("profit").head()
+    profit_region=profit_region.reset_index()
+    loss_region=loss_region.reset_index()
 
 
 
@@ -28,13 +30,15 @@ def insights(df):
     t_profit=category["profit"].sum()
     category["sale_share"]=(category["sales"]/t_sale)*100
     category["profit share"]=(category["profit"]/t_profit)*100
-
+    category["name"]=df['category']
+    category=category.reset_index()
 
 
     #worst performing category
     loss_category=category.sort_values("profit").head(1)
     loss_df = df[df["profit"] < 0]["profit"].sum()
     loss_per=(loss_category["profit"]/loss_df)*100
+
 
     
     #high share share but low profit share region

@@ -60,5 +60,6 @@ def detect_profit_leakage(df):
 
     top=product["profit"]
     top=top.sort_values().head()
+    top=top.reset_index()
     
     return product,high_risk,watchlist,top
