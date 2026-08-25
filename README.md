@@ -8,11 +8,14 @@ ABIDS ingests raw transactional data, cleans and validates it, then surfaces KPI
 
 ## Preview
 
-![Dashboard Overview](screenshots/dashboard-overview.png)
+![Dashboard](screenshots/Screenshot2026-05-27105825.png)
 
-![KPI Analysis](screenshots/kpi-analysis.png)
+![Dashboard](screenshots/Screenshot2026-05-27105856.png)
 
-![Profit Leakage Detection](screenshots/profit-leakage.png)
+![Dashboard](screenshots/Screenshot2026-05-27110016.png)
+
+![Dashboard](screenshots/Screenshot2026-05-27110056.png)
+
 
 ## Key Results
 
