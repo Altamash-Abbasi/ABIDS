@@ -6,6 +6,14 @@ An end-to-end analytics pipeline and interactive dashboard that processes transa
 
 ABIDS ingests raw transactional data, cleans and validates it, then surfaces KPIs, profitability trends, and hidden losses through a live Streamlit dashboard. It also uses an LLM-powered summarization layer to auto-generate executive summaries from the analytics — turning a dense report into a few readable sentences a decision-maker can act on immediately.
 
+## Preview
+
+![Dashboard Overview](screenshots/dashboard-overview.png)
+
+![KPI Analysis](screenshots/kpi-analysis.png)
+
+![Profit Leakage Detection](screenshots/profit-leakage.png)
+
 ## Key Results
 
 - Processed **50,000+ transaction records**
