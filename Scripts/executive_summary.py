@@ -19,8 +19,8 @@ def generate_executive_summary(metrics_dict):
     """
 
     model = genai.GenerativeModel(
-        model_name="gemini-2.5-flash",
-        system_instruction="you are a strategic BI consultant."
+    model_name="gemini-3.6-flash",
+    system_instruction="you are a strategic BI consultant."
     )
 
     response = model.generate_content(
