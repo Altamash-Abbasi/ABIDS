@@ -1,14 +1,13 @@
-from openai import OpenAI
+import google.generativeai as genai
 import streamlit as st
 import os
 
-api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
+api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
-client = OpenAI(api_key=api_key)
+genai.configure(api_key=api_key)
 
-client=OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 def generate_executive_summary(metrics_dict):
-    prompt=f"""
+    prompt = f"""
     You are a senior business intelligence analyst.
 
     Based on the following KPIs and insights, write a concise executive summary.
@@ -18,16 +17,17 @@ def generate_executive_summary(metrics_dict):
 
     Keep it strategic, concise, and action-oriented.
     """
-    response=client.chat.completions.create(
-        model="gpt-4.1-mini",
-        messages=[
-            {
-                "role":"system","content":"you are a strategic BI consultant."
-            },
-            {
-                "role":"user","content":prompt
-            }
-        ]
-        ,temperature=0.4
+
+    model = genai.GenerativeModel(
+        model_name="gemini-2.5-flash",
+        system_instruction="you are a strategic BI consultant."
     )
-    return response.choices[0].messages.content
+
+    response = model.generate_content(
+        prompt,
+        generation_config=genai.types.GenerationConfig(
+            temperature=0.4
+        )
+    )
+
+    return response.text
